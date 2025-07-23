@@ -1,0 +1,44 @@
+{
+	"name": "DS_SQL_MASTER_CHILD",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSql_Link",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Master_pipeline_dataset"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "masterID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "childID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "relation",
+				"type": "varchar"
+			},
+			{
+				"name": "ingestion_date",
+				"type": "date"
+			},
+			{
+				"name": "ingestion_date_key",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "master_child"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

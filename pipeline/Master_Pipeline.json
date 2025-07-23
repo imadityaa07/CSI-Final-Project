@@ -1,0 +1,89 @@
+{
+	"name": "Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "PL_CUST_MSTR",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_CUST_MSTR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_MASTER_CHILD",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_MASTER_CHILD",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "PL_H_ECOM_ORDER",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PL_H_ECOM_ORDER",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "START",
+				"type": "Wait",
+				"dependsOn": [
+					{
+						"activity": "PL_MASTER_CHILD",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "PL_CUST_MSTR",
+						"dependencyConditions": [
+							"Completed"
+						]
+					},
+					{
+						"activity": "PL_H_ECOM_ORDER",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"folder": {
+			"name": "Master_pipeline"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-07-23T03:52:42Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

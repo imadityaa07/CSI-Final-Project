@@ -1,0 +1,41 @@
+{
+	"name": "E_com_order_sql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSql_Link",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Master_pipeline_dataset"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CustomerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProductID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Quantity",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "H_ECOM_Orders"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

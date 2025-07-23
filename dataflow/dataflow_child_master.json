@@ -1,0 +1,70 @@
+{
+	"name": "dataflow_child_master",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_input_csv_child_master",
+						"type": "DatasetReference"
+					},
+					"name": "sources1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Child_Master_SQL_Table",
+						"type": "DatasetReference"
+					},
+					"name": "SinkMASTERCHILD1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddIngestionDate"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          MasterID as integer,",
+				"          ChildID as integer,",
+				"          Relation as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sources1",
+				"sources1 derive(ingestion_date = toDate(currentUTC())) ~> AddIngestionDate",
+				"AddIngestionDate sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          masterID as integer,",
+				"          childID as integer,",
+				"          relation as string,",
+				"          ingestion_date as date,",
+				"          ingestion_date_key as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          masterID = MasterID,",
+				"          childID = ChildID,",
+				"          relation = Relation,",
+				"          ingestion_date",
+				"     )) ~> SinkMASTERCHILD1"
+			]
+		}
+	}
+}

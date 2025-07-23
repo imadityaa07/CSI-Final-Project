@@ -1,0 +1,63 @@
+{
+	"name": "dataflow_Cust",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_input_csv_cust_mstr",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CUST_MSTR_sql_table",
+						"type": "DatasetReference"
+					},
+					"name": "SinkCUSTMSTR1",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddIngestionDate"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ID as string,",
+				"          Name as string,",
+				"          Email as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive(ingestion_date = toDate(currentUTC())) ~> AddIngestionDate",
+				"AddIngestionDate sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     input(",
+				"          ID as integer,",
+				"          Name as string,",
+				"          Email as string,",
+				"          ingestion_date as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> SinkCUSTMSTR1"
+			]
+		}
+	}
+}

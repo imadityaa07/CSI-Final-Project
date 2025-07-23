@@ -1,0 +1,21 @@
+{
+	"name": "FtpServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FtpServer",
+		"typeProperties": {
+			"host": "10.186.240.233",
+			"port": 21,
+			"enableSsl": false,
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Basic",
+			"userName": "ftpuser",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1NmE2MTYzZi0xYmQyLTQ4MDEtYTI3MC0xMDRhM2FkZTkyZGQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "MySelfHostedRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
