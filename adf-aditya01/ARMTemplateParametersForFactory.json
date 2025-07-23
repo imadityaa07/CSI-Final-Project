@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-aditya01"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSql_Link_password": {
+			"value": ""
+		},
+		"FtpServer1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adityadatalake01.dfs.core.windows.net/"
+		},
+		"AzureSql_Link_properties_typeProperties_server": {
+			"value": "adityaserver01.database.windows.net"
+		},
+		"AzureSql_Link_properties_typeProperties_database": {
+			"value": "AdityaDB"
+		},
+		"AzureSql_Link_properties_typeProperties_userName": {
+			"value": "adityaadmin"
+		},
+		"FtpServer1_properties_typeProperties_host": {
+			"value": "10.186.240.233"
+		},
+		"FtpServer1_properties_typeProperties_userName": {
+			"value": "ftpuser"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://restcountries.com/v3.1/name/"
+		},
+		"ls_restcountries_api_properties_typeProperties_url": {
+			"value": "https://restcountries.com/v3.1/name/"
+		}
+	}
+}
